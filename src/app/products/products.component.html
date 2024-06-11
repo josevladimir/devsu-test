@@ -1,0 +1,11 @@
+<devsu-screen-wrapper>
+    <div class="flex flex-vertical-center mb-1">
+        <input type="search" placeholder="Buscar..." [formControl]="searchTermControl">
+        <div class="flex-fill-space"></div>
+        <button class="main" [routerLink]="['new']">Agregar</button>
+    </div>
+    <devsu-paginated-table
+        [columns]="productsColumns"
+        [source]="filteredProducts">
+    </devsu-paginated-table>
+</devsu-screen-wrapper>

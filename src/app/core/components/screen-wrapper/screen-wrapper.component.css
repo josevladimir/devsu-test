@@ -1,0 +1,21 @@
+header {
+    align-items: center;
+    background-color: var(--header-bg-color);
+    display: flex;
+    height: 52px;
+    justify-content: center;
+    padding: .8rem;
+}
+.screen-wrapper {
+    background-color: var(--main-bg-color);
+    height: calc(100vh - 52px);
+    overflow-y: scroll;
+    width: 100%;
+}
+::ng-deep .screen-wrapper .content {
+    display: block;
+    margin: auto;
+    max-width: 900px;
+    padding: 3.2rem;
+    width: 100%;
+}

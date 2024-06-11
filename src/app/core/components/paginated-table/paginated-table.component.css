@@ -1,0 +1,42 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+table thead {
+    background-color: #fafafa;
+}
+table thead tr,
+table tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+table thead tr th {
+    color: var(--main-text-color);
+    font-weight: 500;
+    padding: 1.6rem;
+    text-align: left;
+}
+table tbody tr td {
+    padding: .8rem 1.6rem;
+}
+table tbody tr td.no-content {
+    padding: 3.2rem 1.6rem;
+}
+.table-container {
+    background-color: white;
+    overflow-x: scroll;
+    padding: 1.6rem 1.6rem 0px;
+}
+
+/* Pagination */
+.pagination-section {
+    align-items: center;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: .8rem 1.6rem 1.6rem;
+}
+select {
+    border: 1px solid rgba(0,0,0,.12);
+    padding: .4rem .8rem;
+    border-radius: .8rem;
+}

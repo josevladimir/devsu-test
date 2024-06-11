@@ -1,0 +1,31 @@
+<div class="table-container">
+    <devsu-spinner *ngIf="!data"></devsu-spinner>
+    <table *ngIf="data">
+        <thead>
+            <tr>
+                <th *ngFor="let column of columns"
+                    [ngClass]="{'text-center': column.centered}">
+                    {{column.display}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="!data.length">
+                <td class="text-center no-content" [attr.colspan]="columns.length">Sin elementos que mostrar...</td>
+            </tr>
+            <tr *ngFor="let record of data">
+                <td *ngFor="let column of columns">
+                    {{record[column.display]}}
+                </td>
+            </tr>               
+        </tbody>
+    </table>
+</div>
+<div *ngIf="data" class="pagination-section">
+    {{totalRecords}} Resultados 
+    <select [(ngModel)]="showedItems" (change)="updateShowedItems()">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+</div>
