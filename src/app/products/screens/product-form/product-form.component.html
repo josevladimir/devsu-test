@@ -1,0 +1,43 @@
+<devsu-screen-wrapper>
+    <form *ngIf="productForm" [formGroup]="productForm">
+        <h2 class="text-center">Formulario de {{product ? 'Edición' : 'Registro'}}</h2>
+        
+        <div class="fields-wrapper mt-2">
+            <devsu-form-field
+                label="ID"
+                [control]="getControl('id')">
+            </devsu-form-field>
+            <devsu-form-field
+                label="Nombre"
+                [control]="getControl('name')">
+            </devsu-form-field>
+            
+            <devsu-form-field
+                label="Descripción"
+                [control]="getControl('description')">
+            </devsu-form-field>
+            <devsu-form-field
+                label="Logo"
+                [control]="getControl('logo')">
+            </devsu-form-field>
+
+            <devsu-form-field
+                label="Fecha Liberación"
+                [control]="getControl('date_release')"
+                (onChange)="onDateReleaseChange($event)"
+                type="date">
+            </devsu-form-field>
+            <devsu-form-field
+                label="Fecha Revisión"
+                [control]="getControl('date_revision')"
+                type="date">
+            </devsu-form-field>
+        </div>
+        
+        <div class="flex mt-3 mb-1 flex-horizontal-center">
+            <button type="button" (click)="resetForm()">Reiniciar</button>
+            <button type="submit" class="main" (click)="saveProduct()">Enviar</button>
+        </div>
+
+    </form>
+</devsu-screen-wrapper>

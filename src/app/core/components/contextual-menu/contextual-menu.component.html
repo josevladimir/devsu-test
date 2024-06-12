@@ -1,0 +1,11 @@
+<div>
+    <button class="icon menu-trigger" (click)="triggerContextualMenu($event)"><devsu-icon>more_vert</devsu-icon></button>
+    <ul *ngIf="isOpen">
+        <li
+            class="menu-link"
+            *ngFor="let menuItem of menuItems"
+            (click)="onOptionSelected(menuItem)">
+            {{menuItem.display}}
+        </li>
+    </ul>
+</div>

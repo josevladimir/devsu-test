@@ -40,3 +40,7 @@ select {
     padding: .4rem .8rem;
     border-radius: .8rem;
 }
+#pagination {
+    display: flex;
+    align-items: center;
+}

@@ -4,15 +4,14 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { CoreModule } from '../core/core.module';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewProductComponent } from './screens/new-product/new-product.component';
+import { ProductFormComponent } from './screens/product-form/product-form.component';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
-    NewProductComponent
+    ProductFormComponent
   ],
   imports: [
     CommonModule,

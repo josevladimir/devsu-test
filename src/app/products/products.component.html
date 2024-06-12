@@ -6,6 +6,7 @@
     </div>
     <devsu-paginated-table
         [columns]="productsColumns"
-        [source]="filteredProducts">
+        [source]="filteredProducts"
+        (onContextualMenuSelected)="handleContextualMenu($event)">
     </devsu-paginated-table>
 </devsu-screen-wrapper>

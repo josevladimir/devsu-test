@@ -15,7 +15,13 @@
             </tr>
             <tr *ngFor="let record of data">
                 <td *ngFor="let column of columns">
-                    {{record[column.display]}}
+                    <span *ngIf="!column.type">{{record[column.name]}}</span>
+                    <devsu-contextual-menu 
+                        *ngIf="column.type == 'menu'"
+                        #menu
+                        [menuItems]="column.menuItems || []"
+                        (optionSelected)="handleContextualMenuSelection($event, record)">
+                    </devsu-contextual-menu>
                 </td>
             </tr>               
         </tbody>
@@ -23,6 +29,13 @@
 </div>
 <div *ngIf="data" class="pagination-section">
     {{totalRecords}} Resultados 
+    
+    <div id="pagination">
+        <button class="icon" [disabled]="!canGoToPrev()" (click)="goToPrev()"><devsu-icon>chevron_left</devsu-icon></button>
+        {{currentPage}} de {{totalPages}}
+        <button class="icon" [disabled]="!canGoToNext()" (click)="goToNext()"><devsu-icon>chevron_right</devsu-icon></button>
+    </div>
+    
     <select [(ngModel)]="showedItems" (change)="updateShowedItems()">
         <option value="5">5</option>
         <option value="10">10</option>

@@ -1,0 +1,36 @@
+#toast {
+    align-items: center;
+    animation: enter .25s;
+    background-color: white;
+    border-radius: .8rem;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.25);
+    display: flex;
+    max-width: 500px;
+    min-width: 250px;
+    padding: 1.6rem;
+    position: absolute;
+    right: 3.2rem;
+    top: 5.6rem;
+    z-index: 100;
+}
+span {
+    display: block;
+    margin-left: 1.6rem;
+}
+::ng-deep devsu-icon.error span {
+    color: red;
+}
+::ng-deep devsu-icon.info span,
+::ng-deep devsu-icon.success span {
+    color: var(--main-text-color);
+}
+
+@keyframes enter {
+    0% {
+        opacity: 0;
+        right: 0px;
+    } 100% {
+        opacity: 1;
+        right: 3.2rem;
+    }
+}

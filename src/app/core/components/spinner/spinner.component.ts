@@ -7,7 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class SpinnerComponent {
 
-  @Input() public height: number = 50;
-  @Input() public width: number = 50;
+  @Input() public diameter: number = 50;
 
 }

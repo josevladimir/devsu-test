@@ -1,0 +1,9 @@
+<div id="toast" *ngIf="isVisible">
+    <ng-container [ngSwitch]="type">
+        <devsu-icon [class]="type" *ngSwitchCase="'error'">close</devsu-icon>
+        <devsu-icon [class]="type" *ngSwitchCase="'success'">check</devsu-icon>
+        <devsu-icon [class]="type" *ngSwitchCase="'info'">error</devsu-icon>
+        <devsu-icon [class]="type" *ngSwitchDefault>error</devsu-icon>
+    </ng-container>
+    <span>{{text}}</span>
+</div>
