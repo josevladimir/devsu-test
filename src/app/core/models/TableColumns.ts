@@ -9,4 +9,4 @@ export interface TableColumn {
     menuItems?: ContextualMenuItem[]
 }
 
-declare type TableColumnType = 'menu';
+declare type TableColumnType = 'menu' | 'logo';

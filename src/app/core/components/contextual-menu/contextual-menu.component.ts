@@ -13,11 +13,15 @@ export class ContextualMenuComponent {
   @Output() optionSelected: EventEmitter<any> = new EventEmitter<any>();
 
   public isOpen: boolean = false;
+  public posX: number;
+  public posY: number;
 
   constructor(private eRef: ElementRef) {}
 
   triggerContextualMenu(event: any): void{
     this.isOpen = true;
+    this.posX = event.clientX;
+    this.posY = event.clientY;
   }
   
   onOptionSelected(menuItem: ContextualMenuItem): void {

@@ -23,7 +23,7 @@ export class PaginatedTableComponent implements OnChanges {
   
   ngOnChanges(changes: SimpleChanges): void {
     this.totalRecords = this.source?.length || 0;
-    if(this.totalRecords) this.updateShowedItems();
+    this.updateShowedItems();
   }
 
   canGoToNext(): boolean {
@@ -50,8 +50,8 @@ export class PaginatedTableComponent implements OnChanges {
 
   updateShowedItems(){
     this.totalPages = nextInteger(this.totalRecords / this.showedItems);
-    console.log(this.totalPages);
     if(this.currentPage > this.totalPages) this.currentPage = this.totalPages;
+    else if(this.currentPage == 0) this.currentPage = 1;
 
     if(this.totalRecords > this.showedItems) this.data = this.source?.slice(this.showedItems * (this.currentPage-1), this.showedItems * this.currentPage);
     else this.data = this.source;

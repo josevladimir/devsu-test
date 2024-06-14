@@ -1,10 +1,10 @@
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { Observable, map } from "rxjs";
-import { ProductsService } from '../../products/services/products.service';
 
 export const getControl = (formControlName: string, formGroup: FormGroup): FormControl|null => {
     return formGroup.get(formControlName) as FormControl;
 }
+
 
 export const DevsuFormValidators = {
     todayOrAfter: (control: AbstractControl): ValidationErrors| null => {
@@ -24,9 +24,9 @@ export const DevsuFormValidators = {
         
         return null;
     },
-    uniqueID: (productsService: ProductsService): AsyncValidatorFn => {
+    uniqueID: (checkFn: (value: string) => Observable<boolean>): AsyncValidatorFn => {
         return (control: AbstractControl): Observable<ValidationErrors|null> => {
-            return productsService.checkByID(control.value)
+            return checkFn(control.value)
                 .pipe(
                     map((result: boolean) => result ? { idTaken: true } : null)
                 );

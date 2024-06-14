@@ -22,6 +22,11 @@
                         [menuItems]="column.menuItems || []"
                         (optionSelected)="handleContextualMenuSelection($event, record)">
                     </devsu-contextual-menu>
+                    <devsu-product-logo 
+                        *ngIf="column.type == 'logo'"
+                        [productLogo]="record[column.name].logo"
+                        [productName]="record[column.name].name">
+                    </devsu-product-logo>
                 </td>
             </tr>               
         </tbody>
@@ -31,9 +36,9 @@
     {{totalRecords}} Resultados 
     
     <div id="pagination">
-        <button class="icon" [disabled]="!canGoToPrev()" (click)="goToPrev()"><devsu-icon>chevron_left</devsu-icon></button>
+        <button class="icon back-btn" [disabled]="!canGoToPrev()" (click)="goToPrev()"><devsu-icon>chevron_left</devsu-icon></button>
         {{currentPage}} de {{totalPages}}
-        <button class="icon" [disabled]="!canGoToNext()" (click)="goToNext()"><devsu-icon>chevron_right</devsu-icon></button>
+        <button class="icon next-btn" [disabled]="!canGoToNext()" (click)="goToNext()"><devsu-icon>chevron_right</devsu-icon></button>
     </div>
     
     <select [(ngModel)]="showedItems" (change)="updateShowedItems()">

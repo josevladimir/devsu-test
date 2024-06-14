@@ -1,5 +1,5 @@
 <div *ngIf="control" class="form-field">
     <label>{{label}}</label>
     <input [type]="type" [formControl]="control" (change)="emitChange($event)">
-    <small *ngIf="control.dirty && control.errors">{{parseError()}}</small>
+    <small *ngIf="control.touched && control.errors">{{parseError()}}</small>
 </div>

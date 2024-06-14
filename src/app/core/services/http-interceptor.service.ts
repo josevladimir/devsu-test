@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, filter, finalize, map, take, throwError } from 'rxjs';
+import { Observable, catchError, filter, finalize, take, throwError } from 'rxjs';
 import { GeneralService } from './general.service';
 
 @Injectable({
@@ -11,8 +11,6 @@ export class HttpInterceptorService {
   private generalService: GeneralService = inject(GeneralService);
 
   intercept(req : HttpRequest<any>, next : HttpHandler) : Observable<HttpEvent<any>> {
-    
-    req.headers.append('Content-Type','application/json');
     
     return next.handle(req).pipe(
       filter((response: any) => response instanceof HttpResponse),

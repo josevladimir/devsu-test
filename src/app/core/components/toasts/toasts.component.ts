@@ -23,10 +23,14 @@ export class ToastsComponent implements OnDestroy {
         this.text = definition.text;
         this.isVisible = true;
         setTimeout(() => {
-          this.isVisible = false;
+          this.hideToast();
         }, 5000);
       }
     });
+  }
+
+  hideToast() {
+    this.isVisible = false;
   }
 
   ngOnDestroy(): void {

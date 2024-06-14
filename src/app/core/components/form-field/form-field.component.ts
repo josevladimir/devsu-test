@@ -32,6 +32,7 @@ export class FormFieldComponent implements OnChanges {
       else if(errors.hasOwnProperty('minlength')) error = `Mínimo ${errors.minlength.requiredLength} caracteres.`;
       else if(errors.hasOwnProperty('maxlength')) error = `Máximo ${errors.maxlength.requiredLength} caracteres.`;
       else if(errors.hasOwnProperty('isBefore')) error = `No puede ser una fecha anterior a la actual.`;
+      else if(errors.hasOwnProperty('idTaken')) error = `El id ingresado ya existe.`;
     }
     return error;
   }

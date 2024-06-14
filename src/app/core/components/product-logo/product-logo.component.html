@@ -1,3 +1,4 @@
 <div class="product-logo">
-    {{nameLetters}}
+    <ng-container *ngIf="!productLogo">{{nameLetters}}</ng-container>
+    <img *ngIf="productLogo" [src]="productLogo" (error)="productLogo = null">
 </div>

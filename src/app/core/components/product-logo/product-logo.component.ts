@@ -7,13 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductLogoComponent implements OnInit {
 
-  @Input() private productName: string;
+  @Input() public productName: string;
+  @Input() public productLogo: string|null;
   
   public nameLetters: string;
 
   ngOnInit(): void {
-    let nameSections: string[] = this.productName.split(' ', 2);
-    this.nameLetters = `${nameSections.map((section: string) => section[0]).join('')}`;
+    let nameSections: string[] = this.productName?.split(' ', 2) || [];
+    this.nameLetters = `${nameSections.map((section: string) => section[0].toUpperCase()).join('')}`;
   }
 
 }

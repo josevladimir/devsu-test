@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { parseDate } from 'src/app/core/utils/DateUtils';
 import { DevsuFormValidators, getControl } from 'src/app/core/utils/FormsUtils';
@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnInit{
 
   public productForm: FormGroup;
   public product: Product;
@@ -23,7 +23,7 @@ export class ProductFormComponent {
   private router: Router = inject(Router);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  constructor() {
+  ngOnInit(): void {
 
     this.activatedRoute.params.subscribe({
       next: ({id}: any) => {
@@ -49,7 +49,7 @@ export class ProductFormComponent {
 
   generateProductForm(){
     this.productForm = new FormGroup({
-      id: new FormControl(this.product?.id ||'', [Validators.required, Validators.minLength(3), Validators.maxLength(10)], DevsuFormValidators.uniqueID(this.productsService)),
+      id: new FormControl(this.product?.id ||'', [Validators.required, Validators.minLength(3), Validators.maxLength(10)], DevsuFormValidators.uniqueID(this.productsService.checkByID)),
       name: new FormControl(this.product?.name ||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
       description: new FormControl(this.product?.description ||'', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
       logo: new FormControl(this.product?.logo ||'', Validators.required),
@@ -80,12 +80,17 @@ export class ProductFormComponent {
 
   saveProduct() {
     this.productForm.enable();
+    
+    if(this.productForm.invalid){
+      this.productForm.markAllAsTouched();
+      return this.generalService.showInfoToast('Por favor complete el formulario correctamente');
+    }
 
     this.generalService.startLoading(this.product ? 'Actualizando producto...' : 'Creando producto...');
     if(this.product){
       this.productsService.updateProduct(this.productForm.value).subscribe({
         next: (response: ProductBackendResponse) => {
-          this.router.navigate(['/products']);
+          this.router.navigate(['/all']);
           this.generalService.showSuccessToast('Producto actualizado correctamente.')
         },
         complete: () => {
@@ -96,7 +101,7 @@ export class ProductFormComponent {
     }else{
       this.productsService.createProduct(this.productForm.value).subscribe({
         next: (response: ProductBackendResponse) => {
-          this.router.navigate(['/products']);
+          this.router.navigate(['/all']);
           this.generalService.showSuccessToast('Producto creado correctamente.')
         },
         complete: () => {

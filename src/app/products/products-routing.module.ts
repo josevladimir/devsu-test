@@ -6,8 +6,7 @@ import { ProductFormComponent } from './screens/product-form/product-form.compon
 const routes: Routes = [
   { path: '', component: ProductsComponent },
   { path: 'new', component: ProductFormComponent },
-  { path: ':id', component: ProductFormComponent },
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  { path: 'edit/:id', component: ProductFormComponent }
 ];
 
 @NgModule({

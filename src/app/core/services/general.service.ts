@@ -25,6 +25,10 @@ export class GeneralService {
   showSuccessToast(text: string) {
     this.toastState.emit({text, type: 'success'});
   }
+  
+  showInfoToast(text: string) {
+    this.toastState.emit({text, type: 'info'});
+  }
 
   stopLoading() {
     this.loadingScreenState.emit({state: false});

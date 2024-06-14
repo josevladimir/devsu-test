@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, take } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Product, ProductBackendResponse } from '../models/Product';
 
@@ -13,7 +13,7 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  checkByID(id: string): Observable<boolean> {
+  checkByID = (id: string): Observable<boolean> => {
     return this.http.get<boolean>(`${environment.backendUrl}/bp/products/verification/${id}`);
   }
 

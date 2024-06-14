@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { ProductsService } from './services/products.service';
 import { TableColumn } from '../core/models/TableColumns';
 import { Product } from './models/Product';
 import { FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { ContextualMenuItem } from '../core/models/ContextualMenuItem';
 import { Router } from '@angular/router';
 import { GeneralService } from '../core/services/general.service';
@@ -15,11 +15,13 @@ import { normalizeToSearch } from '../core/utils/StringUtils';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnDestroy {
 
   private productsService: ProductsService = inject(ProductsService);
   private generalService: GeneralService = inject(GeneralService);
   private router: Router = inject(Router);
+
+  public subscription: Subscription;
 
   private contextualMenuItems: ContextualMenuItem[] = [
     {value: 'edit', display: 'Editar' },
@@ -27,7 +29,7 @@ export class ProductsComponent {
   ];
   
   public productsColumns: TableColumn[] = [
-    { name: 'logo', display: 'Logo', centered: true },
+    { name: 'logoObject', display: 'Logo', type: 'logo' },
     { name: 'name', display: 'Nombre del producto' },
     { name: 'description', display: 'Descripción' },
     { name: 'date_release', display: 'Fecha de Liberación' },
@@ -41,17 +43,21 @@ export class ProductsComponent {
 
   constructor () {
     this.loadProducts();
-    this.searchTermControl.valueChanges.pipe(
+    this.subscription = this.searchTermControl.valueChanges.pipe(
       debounceTime(500)
     ).subscribe({
       next: (value: string) => this.filterProducts(value)
     })
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   handleContextualMenu = (value: any) => {
     switch(value.action){
       case 'edit':
-        this.router.navigate(['products', value.record.id]);
+        this.router.navigate(['edit',value.record.id]);
         break;
       case 'delete':
         let deleteLegend: string = `¿Estás seguro de eliminar el producto ${new TitleCasePipe().transform(value.record.name.trim())}?`
@@ -75,6 +81,7 @@ export class ProductsComponent {
     this.filteredProducts = undefined;
     this.productsService.getProducts().subscribe({
       next: (productsResponse: Product[]) => {
+        productsResponse = productsResponse.map((product) => ({...product, logoObject: {logo: product.logo, name: product.name}}));
         this.products = productsResponse;
         this.filteredProducts = productsResponse;
       }
